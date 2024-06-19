@@ -1,0 +1,78 @@
+{% extends "template.html" %}
+
+{% block content %}
+<div class="w3-container" id="where" style="padding-bottom:32px;">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">LISTA DE PERSONAS</span></h5>
+    <a href="/personas" class="w3-button w3-black">AGREGAR</a>
+    
+    <form method="get" action="/lista">
+      <label for="sort_by">Ordenar por:</label>
+      <select id="sort_by" name="sort_by">
+        <option value="_apellido">Apellido</option>
+        <option value="_nombre">Nombre</option>
+        <option value="_cedula">Cédula</option>
+      </select>
+      
+      <label for="order">Orden:</label>
+      <select id="order" name="order">
+        <option value="asc">Ascendente</option>
+        <option value="desc">Descendente</option>
+      </select>
+      
+      <label for="metodo">Método de ordenación:</label>
+      <select id="metodo" name="metodo">
+        <option value="quicksort">Quicksort</option>
+        <option value="mergesort">Mergesort</option>
+        <option value="shellsort">Shellsort</option>
+      </select>
+      
+      <button type="submit" class="w3-button w3-black">Ordenar</button>
+    </form>
+    <form method="post" action="/buscar">
+      <label for="attribute">Buscar por:</label>
+      <select id="attribute" name="attribute">
+          <option value="_apellido">Apellido</option>
+          <option value="_nombre">Nombre</option>
+          <option value="_cedula">Cédula</option>
+      </select>
+  
+      <label for="value">Valor:</label>
+      <input type="text" id="value" name="value">
+  
+      <label for="method">Método de búsqueda:</label>
+      <select id="method" name="method">
+          <option value="binary">Búsqueda Binaria</option>
+          <option value="binarySecuencial">Búsqueda Binaria Secuencial</option>
+      </select>
+  
+      <button type="submit" class="w3-button w3-black">Buscar</button>
+    </form>
+    
+    <table id="Tabla" class="w3-table-all w3-hoverable">
+        <thead>
+            <tr class="w3-light-grey">
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cédula</th>
+                <th>RUC</th>
+                <th>Tipo de RUC</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in lista %}
+            <tr>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.apellido }}</td>
+                <td>{{ item.cedula }}</td>
+                <td>{{ item.numRuc }}</td>
+                <td>{{ item.tipoRuc }}</td>
+                <td><a href="/personas/editar/{{item.id}}" class="w3-button w3-dark-grey">EMITIR</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
